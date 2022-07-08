@@ -72,7 +72,7 @@ export default function LoginPage() {
         />
         <button type="submit">Entrar</button>
       </form>
-      <Link to={"/signup"}>
+      <Link to={"/register"}>
         <p>Primeira vez? Cadastre-se!</p>
       </Link>
     </Content>
