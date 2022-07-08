@@ -9,7 +9,7 @@ import Logo from "../assets/logo.png";
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
-  const { setData } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -34,7 +34,7 @@ export default function LoginPage() {
     }
 
     function registerLogin(obj) {
-      setData({
+        setUserInfo({
         name: obj.name,
         email: obj.email,
         config: {
@@ -44,7 +44,7 @@ export default function LoginPage() {
         },
       });
 
-      navigate("/home");
+      navigate("/produtos");
     }
   }
 
