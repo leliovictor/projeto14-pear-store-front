@@ -44,7 +44,7 @@ export default function RegisterPage(){
         }
     } 
 
-    function montarFormularioSignIn(){
+    function montaFormularioSignUp(){
         return (
             <>
                 <input type="text" id="name" value={userSignUp.name} placeholder="Nome" required
@@ -69,7 +69,7 @@ export default function RegisterPage(){
         )
     }
 
-    const formularioSignIn = montarFormularioSignIn();
+    const formularioSignUp = montaFormularioSignUp();
 
     return (
         <>
@@ -77,7 +77,7 @@ export default function RegisterPage(){
                 <img src={Logo} alt="Logo" />
                 <h1> Pear Store </h1>
             <FormularioCompra onSubmit={postRegister}>
-                    {formularioSignIn}
+                    {formularioSignUp}
             </FormularioCompra>
             <StyledLink to="/"> Já tem uma conta? Entre agora! </StyledLink>
             </Main>
