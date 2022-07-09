@@ -28,7 +28,6 @@ const Content = styled.div`
   padding: 12px;
 
   color: #ffffff;
-
   font-size: 32px;
 
   img {
