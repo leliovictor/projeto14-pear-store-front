@@ -11,30 +11,20 @@ export default function CartPage() {
   const navigate = useNavigate();
   const { userInfo } = useContext(UserContext);
 
-  const [cart, setCart] = useState([
-    {
-      name: "Memoria ultra mega super ddr5 comasdasdasdasdasdsadasdasdasdsadasdsad wifi bluetoth, pisca em 15 cores diferente e ainda faz um omelete se estiver com fome",
-      price: "R$ 299,58",
-      image:
-        "https://w7.pngwing.com/pngs/655/476/png-transparent-ddr3-sdram-memory-module-dimm-computer-data-storage-registered-memory-ram-ram-ram-electronic-device-ddr.png",
-    },
-    {
-      name: "memoria",
-      price: "R$ 299,58",
-      image:
-        "https://s2.glbimg.com/K_qkDk_em2NfvIJJpcrUZcUEFvI=/0x0:695x465/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_08fbf48bc0524877943fe86e43087e7a/internal_photos/bs/2021/1/S/cAJvoDRFuzchoytX5ZUw/2016-07-19-memoria-ram-1.jpg",
-    },
-  ]);
+  const [cart, setCart] = useState([]);
+
+  const [howManyItems, setHowManyItems] = useState(new Array(cart.length).fill(1));
+  const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
     getCart();
-  }, []);
+  }, [refresh]);
 
   async function getCart() {
     try {
-      const response = await axios.get("/cart", userInfo.config);
+      const response = await axios.get("https://git.heroku.com/projeto14-pear-store.git/cart", userInfo.config);
 
-      //setCart(response.data); -> acertar rota primeiro (onde tá o cart?)
+      setCart(response.data);
     } catch (err) {
       console.log(err.response);
     }
@@ -56,16 +46,38 @@ export default function CartPage() {
   }
 
   function renderCart() {
-    const render = cart.map((obj, index) => (
-      <CartItem
-        key={index}
-        index={index}
-        name={obj.name}
-        price={obj.price}
-        image={obj.image}
-      />
-    ));
-    return render;
+    return (
+      <>
+        {cart.map((obj, index) => (
+          <CartItem
+            key={index}
+            index={index}
+            name={obj.name}
+            price={obj.price}
+            image={obj.image}
+            howManyItems={howManyItems}
+            setHowManyItems={setHowManyItems}
+            refresh={refresh}
+            setRefresh={setRefresh}
+          />
+        ))}
+        <TotalPrice>
+          <h1>Total: </h1>
+          <h2>{calcTotalprice()}</h2>
+        </TotalPrice>
+      </>
+    );
+  }
+  
+  function calcTotalprice() {
+    let sum = 0;
+    cart.map((obj,index) => {
+      let value = (obj.price);
+      value = value.replace("R$","").replace(",",".").trim();
+      return sum += parseFloat(value)*howManyItems[index];
+    });
+
+    return `R$ ${sum.toFixed(2).replace(".",",")}`;
   }
 
   return (
@@ -137,4 +149,19 @@ const Title = styled.div`
     display: flex;
     align-items: center;
   }
+`;
+
+const TotalPrice = styled.div`
+display: flex;
+justify-content: flex-end;
+align-items: center;
+
+font-weight: 700;
+font-size: 20px;
+line-height: 23px;
+
+h1{
+  padding-right: 5px;
+}
+
 `;

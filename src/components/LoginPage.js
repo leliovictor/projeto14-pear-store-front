@@ -25,7 +25,7 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await axios.post("https://proj13mywallet.herokuapp.com/login", body);
+      const response = await axios.post("https://git.heroku.com/projeto14-pear-store.git/login", body);
 
       registerLogin(response.data);
     } catch (err) {

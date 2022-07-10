@@ -1,29 +1,75 @@
 import styled from "styled-components";
-import { useState } from "react";
+import axios from "axios";
 
-export default function CartItem({ index, name, price, image }) {
-  const [howManyItems, setHowManyItems] = useState(1);
-
+export default function CartItem({
+  index,
+  name,
+  price,
+  image,
+  howManyItems,
+  setHowManyItems,
+  refresh,
+  setRefresh,
+}) {
   function calcTotal() {
     const value = price.replace("R$", "").replace(",", ".");
     const valueNumber = parseFloat(value);
-    const totalPrice = valueNumber * parseInt(howManyItems);
+    const totalPrice = valueNumber * parseInt(howManyItems[index]);
     const totalPriceString = `R$ ${totalPrice.toFixed(2).replace(".", ",")}`;
 
     return totalPriceString;
   }
 
-  function setAmountItems(param) {
-    if (param === "decrease" && howManyItems > 0) {
-      setHowManyItems(howManyItems - 1);
+  function setAmountItems(param, event) {
+    if (param === "decrease") return decrease();
+    if (param === "increase") return increase();
+
+    if (event) return changeInput(event.target.value);
+  }
+
+  function decrease() {
+    if (howManyItems[index] > 0) {
+      const arrayOfAmount = [...howManyItems];
+      arrayOfAmount[index] = howManyItems[index] - 1;
+      setHowManyItems(arrayOfAmount);
+    }
+  }
+
+  function increase() {
+    const arrayOfAmount = [...howManyItems];
+    arrayOfAmount[index] = howManyItems[index] + 1;
+    setHowManyItems(arrayOfAmount);
+  }
+
+  function changeInput(value) {
+    if (value > 0) {
+      const arrayOfAmount = [...howManyItems];
+      arrayOfAmount[index] = value;
+      setHowManyItems(arrayOfAmount);
     }
   }
 
   function checkAmountOfItem() {
-    if (howManyItems < 0) return setHowManyItems(0);
+    if (howManyItems[index] < 0) {
+      const arrayOfAmount = [...howManyItems];
+      arrayOfAmount[index] = 0;
+      setHowManyItems(arrayOfAmount);
+    }
   }
 
   checkAmountOfItem();
+
+  function deleteProduct() {
+    const text = `Gostaria de apagar o produto ${index + 1} do carrinho?`;
+    if (window.confirm(text)) {
+      try {
+        const response = axios.delete(`MANDAR POR PARAM O INDEX`, "");
+        setRefresh(!refresh);
+      } catch (err) {
+        console.log(err.response.data);
+      }
+    }
+  }
 
   return (
     <Content>
@@ -38,10 +84,10 @@ export default function CartItem({ index, name, price, image }) {
           <p onClick={() => setAmountItems("decrease")}>-</p>
           <input
             type="number"
-            value={howManyItems}
-            onChange={(e) => setHowManyItems(e.target.value)}
+            value={howManyItems[index]}
+            onChange={(e) => setAmountItems("input", e)}
           />
-          <p onClick={() => setHowManyItems(howManyItems + 1)}>+</p>
+          <p onClick={() => setAmountItems("increase")}>+</p>
         </Amount>
         <Price>
           <h1>Preço:</h1>
@@ -49,7 +95,7 @@ export default function CartItem({ index, name, price, image }) {
         </Price>
       </AmountLine>
       <DeleteAndTotal>
-        <ion-icon name="trash-outline"></ion-icon>
+        <ion-icon name="trash-outline" onClick={deleteProduct}></ion-icon>
         <div>
           <h1>Total:</h1>
           <h2>{calcTotal()}</h2>
