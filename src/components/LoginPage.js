@@ -9,7 +9,7 @@ import Logo from "../assets/logo.png";
 export default function LoginPage() {
   const [loading, setLoading] = useState(false);
 
-  const { setData } = useContext(UserContext);
+  const { setUserInfo } = useContext(UserContext);
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -25,7 +25,7 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await axios.post("https://proj13mywallet.herokuapp.com/login", body);
+      const response = await axios.post("https://git.heroku.com/projeto14-pear-store.git/login", body);
 
       registerLogin(response.data);
     } catch (err) {
@@ -34,7 +34,7 @@ export default function LoginPage() {
     }
 
     function registerLogin(obj) {
-      setData({
+        setUserInfo({
         name: obj.name,
         email: obj.email,
         config: {
@@ -44,7 +44,7 @@ export default function LoginPage() {
         },
       });
 
-      navigate("/home");
+      navigate("/produtos");
     }
   }
 

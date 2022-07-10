@@ -6,6 +6,7 @@ import "../assets/styles/reset.css";
 import "../assets/styles/style.css";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
+import CartPage from "./CartPage";
 import ProductsPage from "./ProductsPage"
 
 export default function App() {
@@ -19,6 +20,7 @@ export default function App() {
           <Route path="/" element={<LoginPage />} />
           <Route path="/register" element={<RegisterPage />}/>
           <Route path="/produtos" element={<ProductsPage />}/>
+          <Route path="/cart" element={<CartPage />}/>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>
