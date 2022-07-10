@@ -25,6 +25,13 @@ const Content = styled.div`
   align-items: center;
   justify-content: space-between;
 
+  background-color: #47C760;
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 1;
+
   padding: 12px;
 
   color: #ffffff;
