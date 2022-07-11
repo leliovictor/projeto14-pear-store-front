@@ -29,7 +29,7 @@ export default function ProductsPage() {
     return (
       <>
         {products.map((el, index) => (
-          <ProductItem key={index} id={el._id} name={el.name} price={el.price} image={el.image} />
+          <ProductItem key={index} _id={el._id} name={el.name} price={el.price} image={el.image} />
 
         ))}
       </>

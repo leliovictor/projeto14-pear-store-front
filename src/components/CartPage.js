@@ -13,10 +13,12 @@ export default function CartPage() {
   const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [cart, setCart] = useState([]);
+  const [howManyItems, setHowManyItems] = useState([]);
 
-  const [howManyItems, setHowManyItems] = useState(
-    new Array(cart.length).fill(1)
-  );
+  useEffect(()=>{
+    setHowManyItems(new Array(cart.length).fill(1));
+  },[cart]);
+  
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -79,7 +81,7 @@ export default function CartPage() {
     let sum = 0;
     cart.map((obj, index) => {
       let value = obj.price;
-      value = value.replace("R$", "").replace(",", ".").trim();
+      value = value.replace("R$", "").replace(".","").replace(",", ".").trim();
       return (sum += parseFloat(value) * howManyItems[index]);
     });
 

@@ -17,10 +17,12 @@ export default function CartItem({
   const { userInfo } = useContext(UserContext);
 
   function calcTotal() {
-    const value = price.replace("R$ ", "").replace(",", ".");
+    const value = price.replace("R$", "").replace(".","").replace(",", ".");
     const valueNumber = parseFloat(value);
     const totalPrice = valueNumber * parseInt(howManyItems[index]);
     const totalPriceString = `R$ ${totalPrice.toFixed(2).replace(".", ",")}`;
+
+    console.log(howManyItems[index]);
 
     return totalPriceString;
   }
