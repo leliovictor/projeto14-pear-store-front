@@ -6,6 +6,7 @@ import { useNavigate } from "react-router-dom";
 import HeaderComponent from "./HeaderComponent";
 import UserContext from "../contexts/UserContext";
 import CartItem from "./CartItem";
+import FooterComponent from "./FooterComponent";
 
 export default function CartPage() {
   const navigate = useNavigate();
@@ -22,10 +23,10 @@ export default function CartPage() {
 
   async function getCart() {
     try {
-      const response = await axios.get("https://git.heroku.com/projeto14-pear-store.git/cart", userInfo.config);
+      const response = await axios.get("https://projeto14-pear-store.herokuapp.com/cart",userInfo.config);
 
       setCart(response.data);
-    } catch (err) {
+    } catch(err) {
       console.log(err.response);
     }
   }
@@ -90,6 +91,7 @@ export default function CartPage() {
         </Title>
         {checkCart()}
       </Content>
+      <FooterComponent />
     </>
   );
 }

@@ -27,7 +27,7 @@ export default function RegisterPage(){
                     };
                     console.log(data)
                    
-                    await axios.post("https://pear-store.herokuapp.com/register", data);
+                    await axios.post("https://projeto14-pear-store.herokuapp.com/register", data);
                         navigate("/");
                 } else {
                     alert("As senhas não são iguais! Tente novamente.");

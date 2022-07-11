@@ -25,7 +25,7 @@ export default function LoginPage() {
     };
 
     try {
-      const response = await axios.post("https://git.heroku.com/projeto14-pear-store.git/login", body);
+      const response = await axios.post("https://projeto14-pear-store.herokuapp.com/login", body);
 
       registerLogin(response.data);
     } catch (err) {
@@ -39,7 +39,7 @@ export default function LoginPage() {
         email: obj.email,
         config: {
           headers: {
-            Authorization: `Bearer ${obj.token}`,
+            authorization: `Bearer ${obj.token}`,
           },
         },
       });

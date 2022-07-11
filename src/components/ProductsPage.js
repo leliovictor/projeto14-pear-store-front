@@ -27,7 +27,7 @@ export default function RegisterPage(){
                     };
                     console.log(data)
                    
-                    await axios.post("https://pear-store.herokuapp.com/register", data);
+                    await axios.post("https://projeto14-pear-store.herokuapp.com/register", data);
                         navigate("/");
                 } else {
                     alert("As senhas não são iguais! Tente novamente.");
@@ -60,6 +60,10 @@ export default function RegisterPage(){
     
 
     const formularioSignIn = montaFormularioSignUp();
+
+    function goToCart() {
+        navigate("/cart");
+    }
 
     return (
         <>
@@ -131,7 +135,7 @@ export default function RegisterPage(){
             
             </Main>
         <Footer>
-            <Button>
+            <Button onClick={() => goToCart()}>
                 <p> Ir para o carrinho </p>
             </Button>
         </Footer>
