@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { useNavigate, useLocation } from "react-router-dom";
 
-export default function FooterComponent({ cart }) {
+export default function FooterComponent({ cart, howManyItems }) {
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -27,12 +27,16 @@ export default function FooterComponent({ cart }) {
         <SmallButton onClick={() => navigate("/produtos")}>
           Produtos
         </SmallButton>
-        <SmallButton onClick={() => navigate("/checkout")}>
+        <SmallButton onClick={() => goToCheckout()}>
           Confirmar compra
         </SmallButton>
       </>
     );
   }
+
+  function goToCheckout() {
+    navigate("/checkout", {state: {cart, howManyItems}});
+  };
 
   function renderProductCartButton() {
     return (

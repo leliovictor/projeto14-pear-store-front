@@ -109,19 +109,18 @@ export default function CartPage() {
     if (cart.length > 0)
       setUserInfo({ ...userInfo, buyerPrice: calcTotalprice() });
   }, [howManyItems]);
-  console.log(userInfo);
 
   return (
     <>
       <HeaderComponent />
       <Content>
-        <Title>
+        <Tittle>
           <ion-icon name="cart-outline"></ion-icon>
           <h1>MEU CARRINHO</h1>
-        </Title>
+        </Tittle>
         {checkCart()}
       </Content>
-      <FooterComponent cart={cart} />
+      <FooterComponent cart={cart} howManyItems={howManyItems}/>
     </>
   );
 }
@@ -165,7 +164,7 @@ const EmptySpace = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Tittle = styled.div`
   display: flex;
   padding-top: 10px;
 
