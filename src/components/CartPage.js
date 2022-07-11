@@ -13,12 +13,6 @@ export default function CartPage() {
   const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [cart, setCart] = useState([
-    /* {
-      name: "Memoria",
-      price: "R$ 323,50",
-      image:
-        "https://idocode.com.br/wp-content/uploads/2018/07/partes-pc.jpg.webp",
-    },
     {
       name: "Memoria",
       price: "R$ 323,50",
@@ -30,7 +24,13 @@ export default function CartPage() {
       price: "R$ 323,50",
       image:
         "https://idocode.com.br/wp-content/uploads/2018/07/partes-pc.jpg.webp",
-    }, */
+    },
+    {
+      name: "Memoria",
+      price: "R$ 323,50",
+      image:
+        "https://idocode.com.br/wp-content/uploads/2018/07/partes-pc.jpg.webp",
+    },
   ]);
 
   const [howManyItems, setHowManyItems] = useState(
@@ -49,7 +49,7 @@ export default function CartPage() {
         userInfo.config
       );
 
-      setCart(response.data);
+      //setCart(response.data);
     } catch (err) {
       console.log(err.response);
     }
@@ -106,7 +106,8 @@ export default function CartPage() {
   }
 
   useEffect(() => {
-    if(cart.length > 0) setUserInfo({ ...userInfo, buyerPrice: calcTotalprice() });
+    if (cart.length > 0)
+      setUserInfo({ ...userInfo, buyerPrice: calcTotalprice() });
   }, [howManyItems]);
   console.log(userInfo);
 

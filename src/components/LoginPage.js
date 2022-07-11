@@ -37,6 +37,7 @@ export default function LoginPage() {
         setUserInfo({
         name: obj.name,
         email: obj.email,
+        cpf: obj.cpf,
         config: {
           headers: {
             authorization: `Bearer ${obj.token}`,

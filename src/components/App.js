@@ -7,7 +7,8 @@ import "../assets/styles/style.css";
 import LoginPage from "./LoginPage";
 import RegisterPage from "./RegisterPage";
 import CartPage from "./CartPage";
-import ProductsPage from "./ProductsPage"
+import ProductsPage from "./ProductsPage";
+import CheckoutPage from "./CheckoutPage";
 
 export default function App() {
 
@@ -21,6 +22,7 @@ export default function App() {
           <Route path="/register" element={<RegisterPage />}/>
           <Route path="/produtos" element={<ProductsPage />}/>
           <Route path="/cart" element={<CartPage />}/>
+          <Route path="/checkout" element={<CheckoutPage />}/>
         </Routes>
       </BrowserRouter>
     </UserContext.Provider>

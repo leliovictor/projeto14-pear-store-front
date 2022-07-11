@@ -10,6 +10,7 @@ export default function FooterComponent({ cart }) {
       return renderProductButton();
     if (location.pathname === "/produtos") return renderCartButton();
     if (location.pathname === "/cart") return renderProductCheckoutButton();
+    if (location.pathname === "/checkout") return renderProductCartButton();
   }
 
   function renderProductButton() {
@@ -23,8 +24,23 @@ export default function FooterComponent({ cart }) {
   function renderProductCheckoutButton() {
     return (
       <>
-        <SmallButton onClick={() => navigate("/produtos")}>Produtos</SmallButton>
-        <SmallButton onClick={() => navigate("/checkout")}>Confirmar compra</SmallButton>
+        <SmallButton onClick={() => navigate("/produtos")}>
+          Produtos
+        </SmallButton>
+        <SmallButton onClick={() => navigate("/checkout")}>
+          Confirmar compra
+        </SmallButton>
+      </>
+    );
+  }
+
+  function renderProductCartButton() {
+    return (
+      <>
+        <SmallButton onClick={() => navigate("/produtos")}>
+          Produtos
+        </SmallButton>
+        <SmallButton onClick={() => navigate("/cart")}>Carrinho</SmallButton>
       </>
     );
   }
