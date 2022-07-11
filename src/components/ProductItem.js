@@ -48,5 +48,19 @@ const FundoProducts = styled.div`
 
   border: ${(props) => (props.selected ? "3px solid #347746" : "")};
 
+  img {
+    width: 170px;
+    margin-top: 10px;
+  }
+  h2 {
+    margin: 0px 15px;
+    color: black;
+    font-weight: bold;
+  }
+  h3 {
+    margin-bottom: 5px;
+    color: green;
+  }
+
   cursor: pointer;
 `;

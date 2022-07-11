@@ -53,19 +53,6 @@ const Main = styled.main`
   flex-wrap: wrap;
   margin: 70px 0px;
   padding-bottom: 80px;
-  //height: 100vh;
   background-color: #f2f2f2;
 
-  img {
-    width: 170px;
-    margin-top: 10px;
-  }
-  h2 {
-    color: black;
-    font-weight: bold;
-  }
-  h3 {
-    margin-bottom: 5px;
-    color: green;
-  }
 `;
