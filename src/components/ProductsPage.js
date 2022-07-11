@@ -1,52 +1,51 @@
 import axios from "axios";
-import { useState, useContext, useEffect } from "react";
-import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { useNavigate } from 'react-router';
+import { useState, useContext, useEffect } from "react";
 
+import UserContext from "../contexts/UserContext";
 import HeaderComponent from "./HeaderComponent";
 import FooterComponent from "./FooterComponent";
 import ProductItem from "./ProductItem";
 
 
-export default function ProductsPage(){
+export default function ProductsPage() {
 
-    const navigate = useNavigate();
-    const [products, setProducts] = useState([])
+  const { userInfo } = useContext(UserContext);
+
+  const [products, setProducts] = useState([]);
 
   useEffect(() => {
-    axios
-      .get(`https://projeto14-pear-store.herokuapp.com/produtos`)
-      .then((response) => {
-        setProducts(response.data)
-      })
+    const promise = axios.get(`https://projeto14-pear-store.herokuapp.com/produtos`, userInfo.config);
+
+    promise.then((response) => {
+      setProducts(response.data);
+    })
       .catch((err) => {
         console.log(err)
       })
   }, []);
- 
-      function montaProdutos(){
-        return (
-            <>
-                {products.map((el,index)=> (
-                  <ProductItem key={index} id={el._id} name={el.name} price={el.price} image={el.image}/>
 
-                ))}
-            </>
-        )
-    }
-
-  
+  function renderProducts() {
     return (
-        <>
-            <HeaderComponent/>
-            <Main>
-                {montaProdutos()}
-            </Main>
-        <FooterComponent />
-        </>
-    );
+      <>
+        {products.map((el, index) => (
+          <ProductItem key={index} id={el._id} name={el.name} price={el.price} image={el.image} />
+
+        ))}
+      </>
+    )
   }
+
+  return (
+    <>
+      <HeaderComponent />
+      <Main>
+        {renderProducts()}
+      </Main>
+      <FooterComponent />
+    </>
+  );
+}
 
 const Main = styled.main`
   display: flex;
@@ -69,31 +68,4 @@ const Main = styled.main`
     margin-bottom: 5px;
     color: green;
   }
-`;
-
-
-const StyledLink = styled(Link)`
-  font-family: "Raleway";
-  font-style: normal;
-  font-weight: 700;
-  font-size: 15px;
-  line-height: 18px;
-  color: #ffffff;
-  text-decoration: none;
-`;
-
-const Button = styled.button`
-  width: 85%;
-  height: 46px;
-
-  background: #347746;
-  border-radius: 5px;
-  border: none;
-
-  font-weight: 700;
-  font-size: 20px;
-  line-height: 23px;
-
-  color: #ffffff;
-  cursor: pointer;
 `;
