@@ -22,8 +22,6 @@ export default function CartItem({
     const totalPrice = valueNumber * parseInt(howManyItems[index]);
     const totalPriceString = `R$ ${totalPrice.toFixed(2).replace(".", ",")}`;
 
-    console.log(howManyItems[index]);
-
     return totalPriceString;
   }
 
