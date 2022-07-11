@@ -12,7 +12,7 @@ export default function CartItem({
   howManyItems,
   setHowManyItems,
   refresh,
-  setRefresh,
+  setRefresh
 }) {
   const { userInfo } = useContext(UserContext);
 
@@ -64,11 +64,11 @@ export default function CartItem({
 
   checkAmountOfItem();
 
-  function deleteProduct() {
+  async function deleteProduct() {
     const text = `Gostaria de apagar o produto ${index + 1} do carrinho?`;
     if (window.confirm(text)) {
       try {
-        const response = axios.delete(
+        await axios.delete(
           `https://projeto14-pear-store.herokuapp.com/cart/${index}`,
           userInfo.config
         );
