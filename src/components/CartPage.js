@@ -10,11 +10,13 @@ import FooterComponent from "./FooterComponent";
 
 export default function CartPage() {
   const navigate = useNavigate();
-  const { userInfo } = useContext(UserContext);
+  const { userInfo, setUserInfo } = useContext(UserContext);
 
   const [cart, setCart] = useState([]);
 
-  const [howManyItems, setHowManyItems] = useState(new Array(cart.length).fill(1));
+  const [howManyItems, setHowManyItems] = useState(
+    new Array(cart.length).fill(1)
+  );
   const [refresh, setRefresh] = useState(false);
 
   useEffect(() => {
@@ -23,10 +25,13 @@ export default function CartPage() {
 
   async function getCart() {
     try {
-      const response = await axios.get("https://projeto14-pear-store.herokuapp.com/cart",userInfo.config);
+      const response = await axios.get(
+        "https://projeto14-pear-store.herokuapp.com/cart",
+        userInfo.config
+      );
 
       setCart(response.data);
-    } catch(err) {
+    } catch (err) {
       console.log(err.response);
     }
   }
@@ -69,29 +74,34 @@ export default function CartPage() {
       </>
     );
   }
-  
+
   function calcTotalprice() {
     let sum = 0;
-    cart.map((obj,index) => {
-      let value = (obj.price);
-      value = value.replace("R$","").replace(",",".").trim();
-      return sum += parseFloat(value)*howManyItems[index];
+    cart.map((obj, index) => {
+      let value = obj.price;
+      value = value.replace("R$", "").replace(",", ".").trim();
+      return (sum += parseFloat(value) * howManyItems[index]);
     });
 
-    return `R$ ${sum.toFixed(2).replace(".",",")}`;
+    return `R$ ${sum.toFixed(2).replace(".", ",")}`;
   }
+
+  useEffect(() => {
+    if (cart.length > 0)
+      setUserInfo({ ...userInfo, buyerPrice: calcTotalprice() });
+  }, [howManyItems]);
 
   return (
     <>
       <HeaderComponent />
       <Content>
-        <Title>
+        <Tittle>
           <ion-icon name="cart-outline"></ion-icon>
           <h1>MEU CARRINHO</h1>
-        </Title>
+        </Tittle>
         {checkCart()}
       </Content>
-      <FooterComponent />
+      <FooterComponent cart={cart} howManyItems={howManyItems}/>
     </>
   );
 }
@@ -100,7 +110,7 @@ const Content = styled.div`
   width: 100vw;
   min-height: 100vh; //Considerando footer e top fixado
 
-  padding: 80px 10px 80px 10px;
+  padding: 80px 10px 70px 10px;
   background-color: #f2f2f2;
 `;
 
@@ -135,7 +145,7 @@ const EmptySpace = styled.div`
   }
 `;
 
-const Title = styled.div`
+const Tittle = styled.div`
   display: flex;
   padding-top: 10px;
 
@@ -154,16 +164,15 @@ const Title = styled.div`
 `;
 
 const TotalPrice = styled.div`
-display: flex;
-justify-content: flex-end;
-align-items: center;
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
 
-font-weight: 700;
-font-size: 20px;
-line-height: 23px;
+  font-weight: 700;
+  font-size: 20px;
+  line-height: 23px;
 
-h1{
-  padding-right: 5px;
-}
-
+  h1 {
+    padding-right: 5px;
+  }
 `;

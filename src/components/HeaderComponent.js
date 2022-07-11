@@ -20,7 +20,7 @@ export default function HeaderComponent() {
 
 const Content = styled.div`
   width: 100%;
-  height: 79px;
+  height: 70px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -46,5 +46,13 @@ const Content = styled.div`
     font-weight: 700;
     font-size: 26px;
     line-height: 31px;
+
+    height: 60px;
+    width: 70%;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
   }
 `;

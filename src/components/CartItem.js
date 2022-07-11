@@ -1,5 +1,8 @@
 import styled from "styled-components";
 import axios from "axios";
+import { useContext } from "react";
+
+import UserContext from "../contexts/UserContext";
 
 export default function CartItem({
   index,
@@ -11,8 +14,10 @@ export default function CartItem({
   refresh,
   setRefresh,
 }) {
+  const { userInfo } = useContext(UserContext);
+
   function calcTotal() {
-    const value = price.replace("R$", "").replace(",", ".");
+    const value = price.replace("R$ ", "").replace(",", ".");
     const valueNumber = parseFloat(value);
     const totalPrice = valueNumber * parseInt(howManyItems[index]);
     const totalPriceString = `R$ ${totalPrice.toFixed(2).replace(".", ",")}`;
@@ -63,7 +68,10 @@ export default function CartItem({
     const text = `Gostaria de apagar o produto ${index + 1} do carrinho?`;
     if (window.confirm(text)) {
       try {
-        const response = axios.delete(`MANDAR POR PARAM O INDEX`, "");
+        const response = axios.delete(
+          `https://projeto14-pear-store.herokuapp.com/cart/${index}`,
+          userInfo.config
+        );
         setRefresh(!refresh);
       } catch (err) {
         console.log(err.response.data);
