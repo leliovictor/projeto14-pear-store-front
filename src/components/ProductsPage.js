@@ -23,7 +23,7 @@ export default function ProductsPage(){
       .catch((err) => {
         console.log(err)
       })
-  }, [])
+  }, []);
  
       function montaProdutos(){
         return (
@@ -36,7 +36,7 @@ export default function ProductsPage(){
         )
     }
 
-  function montaMain() {
+  
     return (
         <>
             <HeaderComponent/>
@@ -47,7 +47,6 @@ export default function ProductsPage(){
         </>
     );
   }
-}
 
 const Main = styled.main`
   display: flex;
