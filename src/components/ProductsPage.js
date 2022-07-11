@@ -1,65 +1,47 @@
 import axios from "axios";
-import { useState, useContext } from "react";
+import { useState, useContext, useEffect } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { useNavigate } from 'react-router';
-import Logo from "../assets/logo.png";
+import HeaderComponent from "./HeaderComponent";
 
-export default function RegisterPage(){
-    const [userSignUp, setUserSignUp] = useState({ name: "", email: "", cpf: "", password: "", confirmPassword: ""});
+
+export default function ProductsPage(){
+
     const navigate = useNavigate();
+    const [products, setProducts] = useState([])
+    const [selected, setSelected] = useState([])
 
-    async function postRegister (e) {
-        e.preventDefault();
-        try {
-            const cpfValido = /^[0-9]{3}\.[0-9]{3}\.[0-9]{3}\-[0-9]{2}$/
-            let resultCPF = cpfValido.test(userSignUp.cpf)
-            if (resultCPF) {
+  useEffect(() => {
+    axios
+      .get(`https://projeto14-pear-store.herokuapp.com/produtos`)
+      .then((response) => {
+        setProducts(response.data.products)
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+  }, [selected])
+ 
 
-                if((userSignUp.password === userSignUp.confirmPassword) && resultCPF) {
-                    const data = { 
-                        name: userSignUp.name, 
-                        email: userSignUp.email, 
-                        cpf: userSignUp.cpf,
-                        password: userSignUp.password, 
-                        confirmPassword: userSignUp.confirmPassword,
-
-                    };
-                    console.log(data)
-                   
-                    await axios.post("https://projeto14-pear-store.herokuapp.com/register", data);
-                        navigate("/");
-                } else {
-                    alert("As senhas não são iguais! Tente novamente.");
-                    setUserSignUp({ name:"", email: "", cpf:"", password: "", confirmPassword:""});
-                }
-           } else {
-            alert("Cpf invalido, o cpf deve ser no formato xxx.xxx.xxx-xx");
-            setUserSignUp({ name:"", email: "", cpf:"", password: "", confirmPassword:""});
-           }
-            
-        } catch (e) {
-            alert(e.response.data);
-            setUserSignUp({ name:"", email: "", cpf:"", password: "", confirmPassword:""});
-        }
-    } 
-    function zerarUser() {
-        setUserSignUp({ name:"", email: "", cpf:"", password: "", confirmPassword:""})
-    }
-
-    function montaFormularioSignUp(){
+      function montaProdutos(){
         return (
             <>
- 
-                <div>
-                    <Button type="submit">Cadastrar</Button>
-                </div>
+                {products.map((el) => {
+                                return (
+                                    <FundoProducts >
+                                        <img src={el.image} alt="" />
+                                        <h2>{el.name}</h2>
+                                        <h3>{el.price}</h3>
+                                    </FundoProducts>
+                                )
+                                })}
             </>
         )
     }
-    
-
-    const formularioSignIn = montaFormularioSignUp();
+    // function adicionarProduto(e) {
+        
+    // }
 
     function goToCart() {
         navigate("/cart");
@@ -67,72 +49,10 @@ export default function RegisterPage(){
 
     return (
         <>
-        <Header>
-            <img src={Logo} alt="Logo" />
-            <h1> Pear Store </h1>
-            
-            <StyledLink to="/" onClick={zerarUser}> <ion-icon name="log-out-outline"></ion-icon> </StyledLink>
-        </Header>
+            <HeaderComponent/>
+           
             <Main>
-                
-                <FundoProducts > 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-                <FundoProducts> 
-                    <img src="https://media.pichau.com.br/media/catalog/product/cache/2f958555330323e505eba7ce930bdf27/b/y/by-8188-pretob32107.jpg" alt="" />
-                    <h2>Nome do produto</h2>
-                    <h3> R$ 999,99 </h3>
-                </FundoProducts>
-               
-               
-            
+                {montaProdutos}
             </Main>
         <Footer>
             <Button onClick={() => goToCart()}>
