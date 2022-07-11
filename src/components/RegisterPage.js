@@ -23,6 +23,7 @@ export default function RegisterPage(){
                         cpf: userSignUp.cpf,
                         password: userSignUp.password, 
                         confirmPassword: userSignUp.confirmPassword,
+                        cart: []
 
                     };
                     console.log(data)
