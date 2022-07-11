@@ -16,6 +16,7 @@ export default function ModalComponent({
   const navigate = useNavigate();
 
   function confirm() {
+    //sendEmail();
     alert("Pagamento realizado");
     navigate("/produtos");
   }

@@ -25,6 +25,6 @@ const Content = styled.div`
       max-width: 70%;
       display: flex;
       align-items: center;
-      justify-content: flex-end;
+      text-align: center;
   }
 `;
