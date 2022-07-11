@@ -51,8 +51,8 @@ const Main = styled.main`
   display: flex;
   justify-content: space-evenly;
   flex-wrap: wrap;
-  margin: 70px 0px;
-  padding-bottom: 80px;
+  height: 100%;
+  padding: 70px 0;
   background-color: #f2f2f2;
 
 `;
